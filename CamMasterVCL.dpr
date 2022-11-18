@@ -6,17 +6,19 @@ uses
   uPresets in 'uPresets.pas' {Presets: TDataModule},
   uJoystickFrame in 'uJoystickFrame.pas' {Joystickframe: TFrame},
   Vcl.Themes,
-  Vcl.Styles;
+  Vcl.Styles,
+  uPresetFrame in 'uPresetFrame.pas' {PresetFrame: TFrame},
+  uSettings in 'uSettings.pas';
 
 {$R *.res}
 
 begin
   Application.Initialize;
   Application.MainFormOnTaskbar := True;
-  TStyleManager.TrySetStyle('Windows10 Clear Day');
+  TStyleManager.TrySetStyle('Windows11 White Smoke');
   Application.CreateForm(TPresets, Presets);
   Application.CreateForm(TMainForm, MainForm);
-  if ParamStr(1) = '--invisible' then
+   if ParamStr(1) = '--invisible' then
     Application.ShowMainForm := false;
   Application.Run;
 end.

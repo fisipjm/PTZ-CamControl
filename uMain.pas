@@ -3,24 +3,30 @@ unit uMain;
 interface
 
 uses
-  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants, System.Classes, Vcl.Graphics,
-  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, IdBaseComponent, IdComponent, IdUDPBase, IdUDPClient, Vcl.StdCtrls, Vcl.ExtCtrls, IdGlobal, System.IniFiles, uPresets,
-  uJoystickFrame;
+  Winapi.Windows, Winapi.Messages, System.SysUtils, System.Variants,
+  System.Classes, Vcl.Graphics,
+  Vcl.Controls, Vcl.Forms, Vcl.Dialogs, IdBaseComponent, IdComponent, IdUDPBase,
+  IdUDPClient, Vcl.StdCtrls, Vcl.ExtCtrls, IdGlobal, System.IniFiles, uPresets,
+  uJoystickFrame, uPresetFrame, Vcl.Menus, Vcl.ToolWin, Vcl.ActnMan,
+  Vcl.ActnCtrls, Vcl.ActnMenus, Vcl.StdActns, System.Actions, Vcl.ActnList,
+  System.uitypes, System.UIConsts, usettings, System.StrUtils;
 
 type
   TMainForm = class(TForm)
-    FlowPanel1: TFlowPanel;
-    btn_preset1: TButton;
-    btn_preset2: TButton;
-    btn_preset3: TButton;
-    btn_preset4: TButton;
-    btn_preset5: TButton;
-    btn_preset6: TButton;
-    btn_preset7: TButton;
-    btn_preset8: TButton;
-    btn_preset9: TButton;
-    TitlePanel: TPanel;
     Joystickframe1: TJoystickframe;
+    PresetFrame1: TPresetFrame;
+    MainMenu1: TMainMenu;
+    Fenster1: TMenuItem;
+    Datei1: TMenuItem;
+    ActionList1: TActionList;
+    WindowClose1: TWindowClose;
+    WindowMinimizeAll1: TWindowMinimizeAll;
+    Alleverkleinern1: TMenuItem;
+    Schlieen1: TMenuItem;
+    ShowJoystick: TAction;
+    Navigation1: TMenuItem;
+    ShowPresets: TAction;
+    PreSets1: TMenuItem;
     procedure FormCreate(Sender: TObject);
     procedure FormDestroy(Sender: TObject);
     procedure btn_preset1Click(Sender: TObject);
@@ -33,11 +39,12 @@ type
     procedure btn_preset8Click(Sender: TObject);
     procedure btn_preset9Click(Sender: TObject);
     procedure FormClose(Sender: TObject; var Action: TCloseAction);
-    procedure FormResize(Sender: TObject);
+    procedure ShowJoystickExecute(Sender: TObject);
+    procedure ShowPresetsExecute(Sender: TObject);
+    procedure FormShow(Sender: TObject);
   private
     id1, id2, id3, id4, id5, id6, id7, id8, id9: Integer;
     procedure WMHotKey(var Msg: TWMHotKey); message WM_HOTKEY;
-    procedure SetButtonwidth(NewWidth: integer);
     { Private-Deklarationen }
   public
     { Public-Deklarationen }
@@ -134,31 +141,22 @@ const
 begin
   id1 := GlobalAddAtom('Hotkey1');
   RegisterHotKey(Handle, id1, MOD_CONTROL, 49);
-
   id2 := GlobalAddAtom('Hotkey2');
   RegisterHotKey(Handle, id2, MOD_CONTROL, 50);
-
   id3 := GlobalAddAtom('Hotkey3');
   RegisterHotKey(Handle, id3, MOD_CONTROL, 51);
-
   id4 := GlobalAddAtom('Hotkey4');
   RegisterHotKey(Handle, id4, MOD_CONTROL, 52);
-
   id5 := GlobalAddAtom('Hotkey5');
   RegisterHotKey(Handle, id5, MOD_CONTROL, 53);
-
   id6 := GlobalAddAtom('Hotkey6');
   RegisterHotKey(Handle, id6, MOD_CONTROL, 54);
-
   id7 := GlobalAddAtom('Hotkey7');
   RegisterHotKey(Handle, id7, MOD_CONTROL, 55);
-
   id8 := GlobalAddAtom('Hotkey8');
   RegisterHotKey(Handle, id8, MOD_CONTROL, 56);
-
   id9 := GlobalAddAtom('Hotkey9');
   RegisterHotKey(Handle, id9, MOD_CONTROL, 57);
-
   Presets.preset1;
 end;
 
@@ -185,24 +183,57 @@ begin
   GlobalDeleteAtom(id9);
 end;
 
-procedure TMainForm.FormResize(Sender: TObject);
+procedure TMainForm.FormShow(Sender: TObject);
 begin
-  SetButtonwidth(Round(MainForm.Width / 9)-9);
+  PresetFrame1.btn_preset1.Svg.OverrideColor :=
+    StringToAlphaColor(IniSettings.ReadString(ColorSection,
+    'PresetButton1', ''));
+  PresetFrame1.btn_preset2.Svg.OverrideColor :=
+    StringToAlphaColor(IniSettings.ReadString(ColorSection,
+    'PresetButton2', ''));
+  PresetFrame1.btn_preset3.Svg.OverrideColor :=
+    StringToAlphaColor(IniSettings.ReadString(ColorSection,
+    'PresetButton3', ''));
+  PresetFrame1.btn_preset4.Svg.OverrideColor :=
+    StringToAlphaColor(IniSettings.ReadString(ColorSection,
+    'PresetButton4', ''));
+  PresetFrame1.btn_preset5.Svg.OverrideColor :=
+    StringToAlphaColor(IniSettings.ReadString(ColorSection,
+    'PresetButton5', ''));
+  PresetFrame1.btn_preset6.Svg.OverrideColor :=
+    StringToAlphaColor(IniSettings.ReadString(ColorSection,
+    'PresetButton6', ''));
+  PresetFrame1.btn_preset7.Svg.OverrideColor :=
+    StringToAlphaColor(IniSettings.ReadString(ColorSection,
+    'PresetButton7', ''));
+  PresetFrame1.btn_preset8.Svg.OverrideColor :=
+    StringToAlphaColor(IniSettings.ReadString(ColorSection,
+    'PresetButton8', ''));
+  PresetFrame1.btn_preset9.Svg.OverrideColor :=
+    StringToAlphaColor(IniSettings.ReadString(ColorSection,
+    'PresetButton9', ''));
 end;
 
-procedure TMainForm.SetButtonwidth(NewWidth: integer);
+procedure TMainForm.ShowJoystickExecute(Sender: TObject);
 begin
-  btn_preset1.Width:=NewWidth;
-  btn_preset2.Width:=NewWidth;
-  btn_preset3.Width:=NewWidth;
-  btn_preset4.Width:=NewWidth;
-  btn_preset5.Width:=NewWidth;
-  btn_preset6.Width:=NewWidth;
-  btn_preset7.Width:=NewWidth;
-  btn_preset8.Width:=NewWidth;
-  btn_preset9.Width:=NewWidth;
+  Joystickframe1.Visible := not(Sender as TAction).Checked;
+  if Joystickframe1.Visible then
+    MainForm.Height := MainForm.Height + 800
+  else
+    MainForm.Height := MainForm.Height - Joystickframe1.Height;
+
+  (Sender as TAction).Checked := not(Sender as TAction).Checked;
 end;
 
+procedure TMainForm.ShowPresetsExecute(Sender: TObject);
+begin
+  PresetFrame1.Visible := not(Sender as TAction).Checked;
+  if PresetFrame1.Visible then
+    MainForm.Height := MainForm.Height + 200
+  else
+    MainForm.Height := MainForm.Height - PresetFrame1.Height;
 
+  (Sender as TAction).Checked := not(Sender as TAction).Checked;
+end;
 
 end.
