@@ -1,11 +1,12 @@
 object Presets: TPresets
   OnCreate = DataModuleCreate
   OnDestroy = DataModuleDestroy
-  Height = 480
-  Width = 640
+  Height = 960
+  Width = 1280
+  PixelsPerInch = 192
   object UDPClient1: TIdUDPClient
     Port = 0
-    Left = 304
-    Top = 224
+    Left = 608
+    Top = 448
   end
 end

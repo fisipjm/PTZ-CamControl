@@ -11,7 +11,7 @@ object MainForm: TMainForm
   Font.Name = 'Segoe UI'
   Font.Style = []
   Menu = MainMenu1
-  OnClose = FormClose
+  OnCloseQuery = FormCloseQuery
   OnCreate = FormCreate
   OnDestroy = FormDestroy
   OnShow = FormShow
@@ -172,39 +172,30 @@ object MainForm: TMainForm
       ExplicitWidth = 511
       ExplicitHeight = 49
       inherited btn_preset1: TSkSvg
-        Height = 47
         ExplicitHeight = 47
       end
       inherited btn_preset2: TSkSvg
-        Height = 47
         ExplicitHeight = 47
       end
       inherited btn_preset3: TSkSvg
-        Height = 47
         ExplicitHeight = 47
       end
       inherited btn_preset4: TSkSvg
-        Height = 47
         ExplicitHeight = 47
       end
       inherited btn_preset5: TSkSvg
-        Height = 47
         ExplicitHeight = 47
       end
       inherited btn_preset6: TSkSvg
-        Height = 47
         ExplicitHeight = 47
       end
       inherited btn_preset7: TSkSvg
-        Height = 47
         ExplicitHeight = 47
       end
       inherited btn_preset8: TSkSvg
-        Height = 47
         ExplicitHeight = 47
       end
       inherited btn_preset9: TSkSvg
-        Height = 47
         ExplicitHeight = 47
       end
     end
@@ -214,11 +205,8 @@ object MainForm: TMainForm
     Top = 272
     object Datei1: TMenuItem
       Caption = 'Datei'
-      object Alleverkleinern1: TMenuItem
-        Action = WindowMinimizeAll1
-      end
       object Schlieen1: TMenuItem
-        Action = WindowClose1
+        Action = Hide
       end
     end
     object Fenster1: TMenuItem
@@ -237,14 +225,8 @@ object MainForm: TMainForm
     object WindowClose1: TWindowClose
       Category = 'Fenster'
       Caption = '&Schlie'#223'en'
-      Enabled = False
       Hint = 'Schlie'#223'en'
-    end
-    object WindowMinimizeAll1: TWindowMinimizeAll
-      Category = 'Fenster'
-      Caption = '&Alle verkleinern'
-      Enabled = False
-      Hint = 'Alle verkleinern'
+      OnExecute = WindowClose1Execute
     end
     object ShowJoystick: TAction
       Caption = 'Navigation'
@@ -255,6 +237,10 @@ object MainForm: TMainForm
       Caption = 'Pre-Sets'
       Checked = True
       OnExecute = ShowPresetsExecute
+    end
+    object Hide: TAction
+      Caption = 'Hide'
+      OnExecute = HideExecute
     end
   end
 end

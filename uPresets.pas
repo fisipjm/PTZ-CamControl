@@ -44,6 +44,8 @@ type
     procedure ZoomIn;
     procedure ZoomOut;
     procedure ZoomStop;
+    procedure parkingPosition;
+    procedure startPosition;
     { Public-Deklarationen }
   end;
 
@@ -80,6 +82,18 @@ procedure TPresets.DataModuleDestroy(Sender: TObject);
 begin
   if Assigned(IniSettings) then
     IniSettings.Free;
+end;
+
+procedure TPresets.parkingPosition;
+begin
+  UDPClient1.SendBuffer(StringToByteArray(IniSettings.ReadString(PresetSection,
+    'ParkingPosition', ''), Def_Preset1));
+end;
+
+procedure TPresets.startPosition;
+begin
+  UDPClient1.SendBuffer(StringToByteArray(IniSettings.ReadString(PresetSection,
+    'StartPosition', ''), Def_Preset1));
 end;
 
 procedure TPresets.preset1;
