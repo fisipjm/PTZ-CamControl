@@ -12,6 +12,9 @@ This Presets are also registered as hotkeys in the System and can be triggerd by
 
 Information which Packages should be send by the Buttons can be configured in the CamControl.conf File. This File shold be saved in the same Directory like the CamControll.exe.
 
+<img width="525" alt="Bildschirm­foto 2022-11-19 um 16 33 08" src="https://user-images.githubusercontent.com/79201631/202899510-16ad139a-36a6-42d7-8635-1f466d2f79a5.png">
+
+
 ### What it is NOT
 
 You are not able to set any Presets to the Camera this Software only Supports read-access to your Camera
