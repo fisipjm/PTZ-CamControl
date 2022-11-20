@@ -47,12 +47,14 @@ type
     procedure WindowClose1Execute(Sender: TObject);
   private
     id1, id2, id3, id4, id5, id6, id7, id8, id9: Integer;
+    shutdownclose: Bool;
     procedure WMHotKey(var Msg: TWMHotKey); message WM_HOTKEY;
     function processCount(exeFileName: string): Integer;
     function GetProcessIDs(exeFileName: string): tarray<cardinal>;
     function TerminateProcessByID(ProcessID: cardinal): Boolean;
-    procedure WMQueryEndSession (var M: TWMQueryEndSession); message
-    WM_QUERYENDSESSION;
+    procedure WMQueryEndSession(var M: TWMQueryEndSession);
+      message WM_QUERYENDSESSION;
+
     { Private-Deklarationen }
   public
     { Public-Deklarationen }
@@ -70,10 +72,10 @@ begin
   application.Terminate;
 end;
 
-procedure TMainForm.WMQueryEndSession (var M: TWMQueryEndSession);
+procedure TMainForm.WMQueryEndSession(var M: TWMQueryEndSession);
 begin
-inherited;
-  Application.Terminate;
+  shutdownclose := true;
+  application.Terminate;
 end;
 
 procedure TMainForm.WMHotKey(var Msg: TWMHotKey);
@@ -145,9 +147,10 @@ end;
 
 procedure TMainForm.FormCloseQuery(Sender: TObject; var CanClose: Boolean);
 begin
-  CanClose := MessageDlg
-    ('Wirklich schließen? Kamera wird automatisch in die Parkposition versetzt. Zum Ausblenden "Datei" -> "Hide" verwenden.',
-    TMsgDlgType.mtInformation, mbYesNo, 0) = mrYes;
+  if not shutdownclose then
+    CanClose := MessageDlg
+      ('Wirklich schließen? Kamera wird automatisch in die Parkposition versetzt. Zum Ausblenden "Datei" -> "Hide" verwenden.',
+      TMsgDlgType.mtInformation, mbYesNo, 0) = mrYes;
 end;
 
 procedure TMainForm.FormCreate(Sender: TObject);
@@ -274,7 +277,7 @@ end;
 
 function TMainForm.processCount(exeFileName: string): Integer;
 var
-  ContinueLoop: BOOL;
+  ContinueLoop: Bool;
   FSnapshotHandle: THandle;
   FProcessEntry32: TProcessEntry32;
 begin
@@ -297,7 +300,7 @@ end;
 
 function TMainForm.GetProcessIDs(exeFileName: string): tarray<cardinal>;
 var
-  ContinueLoop: BOOL;
+  ContinueLoop: Bool;
   FSnapshotHandle: THandle;
   FProcessEntry32: TProcessEntry32;
 begin
