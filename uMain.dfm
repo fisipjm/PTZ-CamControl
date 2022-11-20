@@ -1,7 +1,7 @@
 object MainForm: TMainForm
   Left = 0
   Top = 0
-  Caption = 'CAMMasterVCL'
+  Caption = 'CamControl'
   ClientHeight = 534
   ClientWidth = 511
   Color = clBtnFace
@@ -172,39 +172,30 @@ object MainForm: TMainForm
       ExplicitWidth = 511
       ExplicitHeight = 49
       inherited btn_preset1: TSkSvg
-        Height = 47
         ExplicitHeight = 47
       end
       inherited btn_preset2: TSkSvg
-        Height = 47
         ExplicitHeight = 47
       end
       inherited btn_preset3: TSkSvg
-        Height = 47
         ExplicitHeight = 47
       end
       inherited btn_preset4: TSkSvg
-        Height = 47
         ExplicitHeight = 47
       end
       inherited btn_preset5: TSkSvg
-        Height = 47
         ExplicitHeight = 47
       end
       inherited btn_preset6: TSkSvg
-        Height = 47
         ExplicitHeight = 47
       end
       inherited btn_preset7: TSkSvg
-        Height = 47
         ExplicitHeight = 47
       end
       inherited btn_preset8: TSkSvg
-        Height = 47
         ExplicitHeight = 47
       end
       inherited btn_preset9: TSkSvg
-        Height = 47
         ExplicitHeight = 47
       end
     end
