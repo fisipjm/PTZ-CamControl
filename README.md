@@ -21,6 +21,8 @@ You are not able to set any Presets to the Camera this Software only Supports re
 
 ### Installation
 
+[Download](https://github.com/pmeder/PTZ-CamControl/releases/download/0.2/CamControl.zip) latest Build.
+
 #### 1.) Run with GUI
 Just Start the CamControll.exe and you are good to go
 Every time you start the software, the comand from Configfile inside of Section [Presets] with the Name [StartPosition] will be called.
