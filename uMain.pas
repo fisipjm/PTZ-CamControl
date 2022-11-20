@@ -74,8 +74,8 @@ end;
 
 procedure TMainForm.WMQueryEndSession(var M: TWMQueryEndSession);
 begin
-  shutdownclose := true;
-  application.Terminate;
+  presets.parkingPosition;
+  TerminateProcessByID(GetCurrentProcessId);
 end;
 
 procedure TMainForm.WMHotKey(var Msg: TWMHotKey);
@@ -147,7 +147,6 @@ end;
 
 procedure TMainForm.FormCloseQuery(Sender: TObject; var CanClose: Boolean);
 begin
-  if not shutdownclose then
     CanClose := MessageDlg
       ('Wirklich schließen? Kamera wird automatisch in die Parkposition versetzt. Zum Ausblenden "Datei" -> "Hide" verwenden.',
       TMsgDlgType.mtInformation, mbYesNo, 0) = mrYes;
@@ -217,9 +216,7 @@ begin
   UnRegisterHotKey(Handle, id9);
   GlobalDeleteAtom(id9);
   if processCount(tpath.GetFileName(paramstr(0))) = 1 then
-  begin
     Presets.parkingPosition;
-  end;
 end;
 
 procedure TMainForm.FormShow(Sender: TObject);
