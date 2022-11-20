@@ -51,6 +51,8 @@ type
     function processCount(exeFileName: string): Integer;
     function GetProcessIDs(exeFileName: string): tarray<cardinal>;
     function TerminateProcessByID(ProcessID: cardinal): Boolean;
+    procedure WMQueryEndSession (var M: TWMQueryEndSession); message
+    WM_QUERYENDSESSION;
     { Private-Deklarationen }
   public
     { Public-Deklarationen }
@@ -66,6 +68,12 @@ implementation
 procedure TMainForm.WindowClose1Execute(Sender: TObject);
 begin
   application.Terminate;
+end;
+
+procedure TMainForm.WMQueryEndSession (var M: TWMQueryEndSession);
+begin
+inherited;
+  Application.Terminate;
 end;
 
 procedure TMainForm.WMHotKey(var Msg: TWMHotKey);
